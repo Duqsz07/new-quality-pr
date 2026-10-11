@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEW QUALITY PR | Streetwear</title>
+  <style>
+    /* PASO 1: Aquí personalizas los colores principales de la marca. */
+    :root {
+      --fondo: #0f0f0f;
+      --texto: #ee1717f5;
+      --gris: #ee1717f5;
+      --acento: #ee1717f5;
+      --tarjeta: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: var(--fondo); color: var(--texto); }
+    a { color: inherit; text-decoration: none; }
+    .aviso { padding: 9px 14px; background: var(--acento); text-align: center; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 6%; border-bottom: 1px solid #dedbd5; }
+    .logo { font-size: 23px; font-weight: 950; letter-spacing: -1.4px; }
+    .logo span { color: #8ba900; }
+    nav { display: flex; gap: 24px; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .bolsa { padding: 11px 14px; border: 1px solid var(--texto); background: transparent; font-weight: 800; cursor: pointer; }
+    .hero { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 490px; background: #d9d5cc; }
+    .hero-texto { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 65px 8%; }
+    .etiqueta { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    h1 { max-width: 560px; margin: 20px 0; font-size: clamp(48px, 7vw, 88px); line-height: .88; letter-spacing: -5px; }
+    .hero-texto p { max-width: 370px; color: #55514b; line-height: 1.65; }
+    .boton { display: inline-block; margin-top: 18px; padding: 15px 22px; border: 0; background: var(--texto); color: white; font-size: 12px; font-weight: 800; letter-spacing: 1px; cursor: pointer; }
+    .hero-foto { min-height: 350px; background: #b7b1a6 url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1200&q=85') center/cover; }
+    .productos { padding: 65px 6%; }
+    .encabezado-seccion { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 25px; }
+    h2 { margin: 0; font-size: clamp(30px, 4vw, 45px); letter-spacing: -2px; }
+    .encabezado-seccion p { margin: 0; color: var(--gris); font-size: 13px; }
+    .rejilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .producto { padding: 12px; background: var(--tarjeta); }
+    .producto img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; background: #e5e1da; }
+    .datos-producto { display: flex; justify-content: space-between; gap: 12px; padding: 14px 2px 4px; }
+    .producto h3 { margin: 0 0 6px; font-size: 14px; }
+    .producto small { color: var(--gris); font-size: 11px; }
+    .precio { font-size: 14px; font-weight: 800; white-space: nowrap; }
+    .anadir { width: 100%; margin-top: 13px; padding: 12px; border: 1px solid #ccc8c0; background: white; font-weight: 800; cursor: pointer; }
+    .anadir:hover { border-color: var(--acento); background: var(--acento); }
+    .banner { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 55px 6%; background: var(--texto); color: white; }
+    .banner h2 { max-width: 520px; margin-top: 10px; }
+    .banner .boton { background: var(--acento); color: var(--texto); white-space: nowrap; }
+    footer { display: flex; justify-content: space-between; gap: 18px; padding: 28px 6%; color: var(--gris); font-size: 11px; }
+    #mensaje-bolsa { position: fixed; right: 18px; bottom: 18px; z-index: 5; display: none; max-width: calc(100% - 36px); padding: 16px 20px; background: var(--texto); color: white; box-shadow: 0 8px 28px #0002;} 
+    #mensaje-bolsa.visible { display: block; }
+    
+#mensaje-bolsa {
+  width: 380px;
+  max-height: 75vh;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.fila-carrito {
+  padding: 12px 0;
+  border-bottom: 1px solid #555;
+}
+
+.fila-carrito p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.fila-carrito button {
+  margin: 4px 5px 4px 0;
+  padding: 8px 12px;
+  border: 1px solid #888;
+  background: white;
+  color: #171717;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.fila-carrito button:hover {
+  background: #d7ff38;
+}
+
+@media (max-width: 450px) {
+  #mensaje-bolsa {
+    width: calc(100% - 36px);
+  }
+}
+
+    @media (max-width: 700px) {
+      header { flex-wrap: wrap; padding: 17px 5%; }
+      nav { order: 3; width: 100%; justify-content: space-between; gap: 10px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-texto { padding: 52px 7%; }
+      .hero-foto { min-height: 300px; }
+      .productos { padding: 45px 5%; }
+      .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .producto { padding: 8px; }
+      .encabezado-seccion { align-items: flex-start; flex-direction: column; }
+      .banner { align-items: flex-start; flex-direction: column; padding: 42px 6%; }
+      h1 { letter-spacing: -3px; }
+      footer { flex-direction: column; }
+    }
+    @media (max-width: 390px) { .rejilla { grid-template-columns: 1fr; } }
+    
+.etiqueta-talla {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.selector-talla {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px;
+  border: 1px solid #ccc8c0;
+  background: white;
+  color: #171717;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.etiqueta-color {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.selector-color {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 11px;
+  border: 1px solid #ccc8c0;
+  background: white;
+  color: #171717;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.filtros-tienda {
+  margin: 35px 0 25px;
+}
+
+.filtros-tienda h2 {
+  font-size: 22px;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+}
+
+#buscar-producto {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  padding: 13px 15px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc8c0;
+  border-radius: 4px;
+  background: white;
+  color: #171717;
+  font-size: 14px;
+}
+
+.botones-categoria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filtro {
+  padding: 10px 16px;
+  border: 1px solid #171717;
+  border-radius: 4px;
+  background: transparent;
+  color: #171717;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.filtro:hover,
+.filtro.activo {
+  background: #171717;
+  color: white;
+}
+
+.producto[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .filtros-tienda h2 {
+    font-size: 18px;
+  }
+
+  .botones-categoria {
+    gap: 7px;
+  }
+
+  .filtro {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+}
+
+.ordenar-productos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+#orden-precio {
+  padding: 10px 12px;
+  border: 1px solid #ccc8c0;
+  border-radius: 4px;
+  background: white;
+  color: #171717;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkout {
+  max-width: 1050px;
+  margin: 45px auto;
+  padding: 25px;
+  color: #171717;
+}
+
+.checkout[hidden] {
+  display: none !important;
+}
+
+.checkout-cabecera {
+  margin-bottom: 30px;
+}
+
+.checkout-cabecera h2 {
+  margin: 8px 0;
+  font-size: 30px;
+}
+
+.checkout-cabecera p {
+  color: #666;
+}
+
+.checkout-contenido {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.checkout-productos,
+.checkout-resumen {
+  padding: 22px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.checkout-productos h3,
+.checkout-resumen h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.checkout-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.checkout-item p {
+  margin: 5px 0;
+}
+
+.linea-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.total-final {
+  padding-top: 18px;
+  border-top: 1px solid #ccc;
+  font-size: 18px;
+}
+
+.aviso-checkout {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.checkout-resumen button {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 4px;
+  background: #171717;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .checkout {
+    padding: 15px;
+  }
+
+  .checkout-contenido {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .checkout-cabecera h2 {
+    font-size: 25px;
+  }
+}
+```css
+.datos-envio {
+  padding: 22px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 25px;
+}
+
+.datos-envio h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.datos-envio label {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.datos-envio input,
+.datos-envio textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.datos-envio input:focus,
+.datos-envio textarea:focus {
+  outline: 2px solid #171717;
+  outline-offset: 1px;
+}
+
+.datos-envio textarea {
+  resize: vertical;
+}
+
+  </style>
+</head>
+<body>
+  
+
+
+  <div class="checkout-contenido">
+<div class="datos-envio">
+  <h3>Datos de envío</h3>
+
+  <form id="formulario-envio">
+    <label for="nombre-cliente">Nombre completo</label>
+    <input
+      type="text"
+      id="nombre-cliente"
+      name="nombre"
+      autocomplete="name"
+      required
+    >
+
+    <label for="correo-cliente">Correo electrónico</label>
+    <input
+      type="email"
+      id="correo-cliente"
+      name="correo"
+      autocomplete="email"
+      required
+    >
+
+    <label for="telefono-cliente">Teléfono</label>
+    <input
+      type="tel"
+      id="telefono-cliente"
+      name="telefono"
+      autocomplete="tel"
+      required
+    >
+
+    <label for="direccion-cliente">Dirección de entrega</label>
+    <input
+      type="text"
+      id="direccion-cliente"
+      name="direccion"
+      autocomplete="street-address"
+      placeholder="Calle, número y urbanización"
+      required
+    >
+
+    <label for="pueblo-cliente">Pueblo o ciudad</label>
+    <input
+      type="text"
+      id="pueblo-cliente"
+      name="pueblo"
+      autocomplete="address-level2"
+      required
+    >
+
+    <label for="codigo-postal">Código postal</label>
+    <input
+      type="text"
+      id="codigo-postal"
+      name="codigoPostal"
+      autocomplete="postal-code"
+      inputmode="numeric"
+      required
+    >
+
+    <label for="instrucciones-entrega">
+      Instrucciones de entrega (opcional)
+    </label>
+    <textarea
+      id="instrucciones-entrega"
+      name="instrucciones"
+      rows="3"
+      placeholder="Detalles adicionales para la entrega"
+    ></textarea>
+  </form>
+</div>
+    <div class="checkout-productos">
+      <h3>Tu pedido</h3>
+      <div id="checkout-items"></div>
+    </div>
+
+    <div class="checkout-resumen">
+      <h3>Resumen de compra</h3>
+
+      <div class="linea-total">
+        <span>Subtotal</span>
+        <span id="checkout-subtotal">$0.00</span>
+      </div>
+
+      <div class="linea-total">
+        <span>Envío</span>
+        <span id="checkout-envio">$5.00</span>
+      </div>
+
+      <div class="linea-total total-final">
+        <strong>Total estimado</strong>
+        <strong id="checkout-total">$5.00</strong>
+      </div>
+
+      <p class="aviso-checkout">
+        Esta versión es una demostración.
+        No se procesan pagos reales.
+      </p>
+
+      <button type="button" onclick="volverATienda()">
+        VOLVER A LA TIENDA
+      </button>
+    </div>
+  </div>
+</section>
+  <div class="aviso">NEW QUALITY PR · CALIDAD QUE SE NOTA</div>
+  <header>
+    <a class="logo" href="#inicio">NEW QUALITY PR<span>.</span></a>
+    <nav aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#coleccion">Colección</a>
+      <a href="#marca">La marca</a>
+    </nav>
+    <button class="bolsa" onclick="mostrarBolsa()">BOLSA (<span id="cantidad-bolsa">0</span>)</button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-texto">
+        <span class="etiqueta">NEW QUALITY PR / DROP 001</span>
+        <h1>ELEVA<br>TU ESTILO.</h1>
+        <p>New Quality con identidad. Piezas unicas, con actitud propia y una nueva forma de llevar tu estilo.</p>
+        <a class="boton" href="#coleccion">EXPLORAR COLECCIÓN ↘</a>
+      </div>
+      <div class="hero-foto" role="img" aria-label="Inspiración de moda urbana"></div>
+    </section>
+
+    <section class="productos" id="coleccion">
+      <div class="encabezado-seccion">
+        <div><span class="etiqueta">Drop 001 / Selección</span><h2>LOS ESENCIALES.</h2></div>
+        <p>Diseño limpio. Presencia fuerte.</p>
+        
+<section class="filtros-tienda">
+  <h2>EXPLORA LA COLECCIÓN</h2>
+
+  <input
+    type="text"
+    id="buscar-producto"
+    placeholder="Buscar una prenda..."
+  >
+
+<div class="ordenar-productos">
+  <label for="orden-precio">Ordenar por precio:</label>
+
+  <select id="orden-precio">
+    <option value="normal">Orden original</option>
+    <option value="mayor-menor">Precio: mayor a menor</option>
+    <option value="menor-mayor">Precio: menor a mayor</option>
+  </select>
+</div>
+
+  <div class="botones-categoria">
+    <button type="button" class="filtro activo"
+      data-filtro="Todos">Todos</button>
+
+    <button type="button" class="filtro"
+      data-filtro="Camisetas">Camisetas</button>
+
+    <button type="button" class="filtro"
+      data-filtro="Pantalones">Pantalones</button>
+
+    <button type="button" class="filtro"
+      data-filtro="Hoodies">Hoodies</button>
+  </div>
+</section>
+
+      </div>
+      <div class="rejilla">
+      </article>
+        <article class="producto" data-categoria="Camisetas">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85" alt="Camiseta básica">
+          <div class="datos-producto"><div><h3>Quality Essential Tee</h3><small>Camiseta · Unisex</small></div><span class="precio">$24.00</span></div>
+<label class="etiqueta-talla">
+  Selecciona tu talla:
+  <select class="selector-talla">
+    <option value="S">S</option>
+    <option value="M" selected>M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+  </select>
+</label>
+<button class="anadir" onclick="anadirConTalla(this,'Quality Essential Tee', 24)">AÑADIR A LA BOLSA +</button>
+        </article>
+        <article class="producto" data-categoria="Hoodies">
+          <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=85" alt="Hoodie urbano">
+          <div class="datos-producto"><div><h3>New Quality Hoodie</h3><small>Hoodie · Unisex</small></div><span class="precio">$48.00</span></div>
+<label class="etiqueta-color">
+  Selecciona tu color:
+  <select class="selector-color">
+    <option value="Negro">Negro</option>
+    <option value="Blanco">Blanco</option>
+    <option value="Gris">Gris</option>
+  </select>
+</label>
+          <button class="anadir" onclick="anadirAlCarrito('New Quality Hoodie', 48)">AÑADIR A LA BOLSA +</button>
+        </article>
+        <article class="producto" data-categoria="Camisetas">
+          <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=800&q=85" alt="Outfit de estilo urbano">
+          <div class="datos-producto"><div><h3>Street Fit</h3><small>Look urbano</small></div><span class="precio">$32.00</span></div>
+<label class="etiqueta-talla">
+  Selecciona tu talla:
+  <select class="selector-talla">
+    <option value="S">S</option>
+    <option value="M" selected>M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+  </select>
+</label>
+<button class="anadir" onclick="anadirConTalla(this,'Street Fit', 32)">AÑADIR A LA BOLSA +</button>
+        </article>
+        <article class="producto" data-categoria="Camisetas">
+          <img src="Html/Photo live hustlers.jpeg" alt="Camiseta básica">
+          <div class="datos-producto"><div><h3>Life Hustlers</h3><small>Camiseta · Hombre</small></div><span class="precio">$45.00</span></div>
+<label class="etiqueta-talla">
+  Selecciona tu talla:
+  <select class="selector-talla">
+    <option value="S">S</option>
+    <option value="M" selected>M</option>
+    <option value="L">L</option>
+    <option value="XL">XL</option>
+  </select>
+</label>
+<button class="anadir" onclick="anadirConTalla(this,'Life Hustlers', 45)">AÑADIR A LA BOLSA +</button>
+        </article>
+        <article class="producto" data-categoria="Pantalones">
+          <img src="Html/photo corto emotion.jpeg" alt="Pantalon corto">
+          <div class="datos-producto"><div><h3>Corto Emotion</h3><small>Pantalon Corto · Size 32</small></div><span class="precio">$55.00</span></div>
+          <button class="anadir"onclick="anadirAlCarrito('Corto Emotion', 55)">AÑADIR A LA BOLSA +</button>
+        </article>
+      </div>
+    </section>
+
+    <section class="banner" id="marca">
+      <div><span class="etiqueta">NEW QUALITY PR</span><h2>Tu estilo. Tus reglas. Tu calidad.</h2></div>
+      <a class="boton" href="#coleccion">ENCUENTRA TU LOOK ↗</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 NEW QUALITY PR · Demo de tienda</span>
+    <span>Instagram · Contacto · Política de devoluciones</span>
+  </footer>
+  <div id="mensaje-bolsa" role="status" aria-live="polite">Tu bolsa está vacía.</div>
+<section id="checkout" class="checkout" hidden>
+    <div class="checkout-cabecera">
+      <h2>Finalizar pedido</h2>
+      <p>Revisa tu orden antes de continuar.</p>
+    </div>
+
+    <div class="checkout-contenido">
+      <div class="checkout-productos">
+        <h3>Tu pedido</h3>
+        <div id="checkout-items"></div>
+      </div>
+
+      <div class="checkout-resumen">
+        <h3>Resumen de compra</h3>
+
+        <p>Subtotal: <span id="checkout-subtotal">$0.00</span></p>
+        <p>Envío: <span id="checkout-envio">$0.00</span></p>
+        <p>Total: <span id="checkout-total">$0.00</span></p>
+        <button type="button" onclick="volverATienda()">
+  VOLVER A LA TIENDA
+</button>
+      </div>
+    </div>
+  </section>
+  <script>
+    // PASO 2: JavaScript mantiene la cuenta y suma los precios del carrito.
+     
+const carrito = JSON.parse(
+  localStorage.getItem("nqpCarrito")
+) || [];
+
+
+
+function anadirAlCarrito(nombre, precio, talla, color) {
+  const existente = carrito.find(
+    producto =>
+      producto.nombre === nombre &&
+      producto.talla === talla &&
+      producto.color === color
+  );
+
+  if (existente) {
+    existente.cantidad++;
+  } else {
+    carrito.push({
+      nombre: nombre,
+      precio: precio,
+      talla: talla,
+      color: color,
+      cantidad: 1
+    });
+  }
+
+  actualizarBolsa();
+}
+
+
+
+function anadirConTalla(boton, nombre, precio) {
+  const tarjeta = boton.closest(".producto");
+
+  const selectorTalla =
+    tarjeta.querySelector(".selector-talla");
+
+  const selectorColor =
+    tarjeta.querySelector(".selector-color");
+
+  const talla = selectorTalla ? selectorTalla.value : "";
+  const color = selectorColor ? selectorColor.value : "";
+
+  anadirAlCarrito(nombre, precio, talla, color);
+}
+
+
+function actualizarBolsa() {
+  const contador = document.getElementById('cantidad-bolsa');
+  const mensaje = document.getElementById('mensaje-bolsa');
+
+  // Cuenta todas las unidades, no solamente los tipos de producto.
+  const unidades = carrito.reduce(
+    (suma, producto) => suma + producto.cantidad,
+    0
+  );
+
+  const total = carrito.reduce(
+    (suma, producto) => suma + producto.precio * producto.cantidad,
+    0
+  );
+
+  contador.textContent = unidades;
+  mensaje.replaceChildren();
+
+  const titulo = document.createElement('h3');
+  titulo.textContent = 'Tu bolsa de compras';
+  mensaje.appendChild(titulo);
+
+  if (carrito.length === 0) {
+    const vacio = document.createElement('p');
+    vacio.textContent = 'Tu bolsa está vacía.';
+    mensaje.appendChild(vacio);
+  }
+
+  carrito.forEach((producto, indice) => {
+    const fila = document.createElement('div');
+    fila.className = 'fila-carrito';
+    const detalle = document.createElement('p');
+   detalle.textContent =
+  `${producto.nombre} · Color ${producto.color || "Negro"} · Talla ${producto.talla || "M"} — $${producto.precio.toFixed(2)} c/u`;
+
+
+    const cantidad = document.createElement('p');
+    cantidad.textContent =
+      `Cantidad: ${producto.cantidad} · Subtotal: $${(producto.precio * producto.cantidad).toFixed(2)}`;
+
+    const menos = document.createElement('button');
+    menos.textContent = '−';
+    menos.setAttribute('aria-label', `Quitar una unidad de ${producto.nombre}`);
+    menos.onclick = () => cambiarCantidad(indice, -1);
+
+    const mas = document.createElement('button');
+    mas.textContent = '+';
+    mas.setAttribute('aria-label', `Añadir una unidad de ${producto.nombre}`);
+    mas.onclick = () => cambiarCantidad(indice, 1);
+
+    const eliminar = document.createElement('button');
+    eliminar.textContent = 'Eliminar';
+    eliminar.onclick = () => eliminarProducto(indice);
+
+    fila.append(detalle, cantidad, menos, mas, eliminar);
+    mensaje.appendChild(fila);
+  });
+
+  const totalTexto = document.createElement('h3');
+  totalTexto.textContent = `TOTAL: $${total.toFixed(2)}`;
+  mensaje.appendChild(totalTexto);
+  if (carrito.length > 0) {
+  const botonCheckout = document.createElement("button");
+  botonCheckout.textContent = "IR AL CHECKOUT";
+  botonCheckout.type = "button";
+  botonCheckout.onclick = abrirCheckout;
+  mensaje.appendChild(botonCheckout);
+}
+
+
+  mensaje.classList.add('visible');
+  localStorage.setItem(
+  "nqpCarrito",
+  JSON.stringify(carrito)
+);
+renderCheckout();
+}
+
+function cambiarCantidad(indice, cambio) {
+  carrito[indice].cantidad += cambio;
+
+  // Si llega a cero, quitamos el producto.
+  if (carrito[indice].cantidad <= 0) {
+    carrito.splice(indice, 1);
+  }
+
+  actualizarBolsa();
+}
+
+function eliminarProducto(indice) {
+  carrito.splice(indice, 1);
+  actualizarBolsa();
+}
+
+function mostrarBolsa() {
+  actualizarBolsa();
+}
+
+
+const botonesFiltro = document.querySelectorAll(".filtro");
+const campoBusqueda = document.getElementById("buscar-producto");
+const tarjetasProductos = document.querySelectorAll(".producto");
+
+let categoriaSeleccionada = "Todos";
+
+const selectorOrden = document.getElementById("orden-precio");
+const contenedorProductos = tarjetasProductos[0]?.parentElement;
+function filtrarProductos() {
+  const texto = campoBusqueda.value
+    .trim()
+    .toLowerCase();
+
+  tarjetasProductos.forEach(tarjeta => {
+    const categoria = tarjeta.dataset.categoria || "";
+
+    const zonaNombre = tarjeta.querySelector(".datos-producto");
+    const nombre = (zonaNombre
+      ? zonaNombre.textContent
+      : tarjeta.textContent).toLowerCase();
+
+    const coincideCategoria =
+      categoriaSeleccionada === "Todos" ||
+      categoria === categoriaSeleccionada;
+
+    const coincideBusqueda = nombre.includes(texto);
+
+    tarjeta.hidden = !(
+      coincideCategoria && coincideBusqueda
+    );
+  });
+  
+const orden = selectorOrden.value;
+
+const productosOrdenados = Array.from(tarjetasProductos);
+
+productosOrdenados.sort((a, b) => {
+  const precioA = parseFloat(
+    a.querySelector(".precio").textContent.replace(/[^0-9.]/g, "")
+  );
+
+  const precioB = parseFloat(
+    b.querySelector(".precio").textContent.replace(/[^0-9.]/g, "")
+  );
+
+  if (orden === "mayor-menor") return precioB - precioA;
+  if (orden === "menor-mayor") return precioA - precioB;
+
+  return 0;
+});
+
+productosOrdenados.forEach(producto => {
+  contenedorProductos.appendChild(producto);
+});
+}
+selectorOrden.addEventListener("change", filtrarProductos);
+
+botonesFiltro.forEach(boton => {
+  boton.addEventListener("click", () => {
+    categoriaSeleccionada = boton.dataset.filtro;
+
+    botonesFiltro.forEach(otroBoton => {
+      otroBoton.classList.remove("activo");
+    });
+
+    boton.classList.add("activo");
+    filtrarProductos();
+  });
+});
+
+campoBusqueda.addEventListener("input", filtrarProductos);
+actualizarBolsa();
+
+function abrirCheckout() {
+  actualizarBolsa();
+
+  const checkout = document.getElementById("checkout");
+  checkout.hidden = false;
+  checkout.scrollIntoView({ behavior: "smooth" });
+}
+
+function volverATienda() {
+  const checkout = document.getElementById("checkout");
+  checkout.hidden = true;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderCheckout() {
+  const lista = document.getElementById("checkout-items");
+  const subtotalElemento =
+    document.getElementById("checkout-subtotal");
+  const envioElemento =
+    document.getElementById("checkout-envio");
+  const totalElemento =
+    document.getElementById("checkout-total");
+
+  if (!lista || !subtotalElemento || !envioElemento || !totalElemento) {
+    return;
+  }
+
+  lista.replaceChildren();
+
+  let subtotal = 0;
+
+  carrito.forEach(producto => {
+    const cantidad = Number(producto.cantidad) || 0;
+    const precio = Number(producto.precio) || 0;
+    const totalProducto = precio * cantidad;
+
+    subtotal += totalProducto;
+
+    const articulo = document.createElement("div");
+    articulo.className = "checkout-item";
+
+    const nombre = document.createElement("strong");
+    nombre.textContent = producto.nombre;
+
+    const variante = document.createElement("p");
+    variante.textContent =
+      `Color: ${producto.color || "No especificado"} · ` +
+      `Talla: ${producto.talla || "No especificada"}`;
+
+    const detalle = document.createElement("p");
+    detalle.textContent =
+      `${cantidad} × $${precio.toFixed(2)} = ` +
+      `$${totalProducto.toFixed(2)}`;
+
+    articulo.append(nombre, variante, detalle);
+    lista.appendChild(articulo);
+  });
+
+  if (carrito.length === 0) {
+    const mensaje = document.createElement("p");
+    mensaje.textContent = "Tu carrito está vacío.";
+    lista.appendChild(mensaje);
+  }
+
+  // Costo de envío de demostración: $5 si hay productos.
+  const envio = subtotal > 0 ? 5 : 0;
+  const total = subtotal + envio;
+
+  subtotalElemento.textContent = `$${subtotal.toFixed(2)}`;
+  envioElemento.textContent = `$${envio.toFixed(2)}`;
+  totalElemento.textContent = `$${total.toFixed(2)}`;
+}
+actualizarBolsa();
+  </script>
+</body>
+</html>
